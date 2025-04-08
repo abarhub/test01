@@ -7,8 +7,8 @@ from datetime import datetime
 from pathlib import Path
 
 jour=1
-#jour=2
-#jour=3
+jour=2
+jour=3
 
 if jour==1:
     file="devoxx1.html"
