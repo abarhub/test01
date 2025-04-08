@@ -26,11 +26,24 @@
         <h1>Vue.js 3</h1>
         <template>
             <div>
-                <select v-model="selectedOption" @change="handleOptionChange"">
+                <select v-model="selectedOption" @change="handleOptionChange">
                     <option v-for="option in options" :value="option.value" :key="option.value">{{ option.label }}</option>
                 </select>
             </div>
         </template>
+        <template>
+          <div>
+            <label for="fruit-select">Choisis un fruit :</label>
+            <select id="fruit-select" v-model="selectedFruit">
+              <option v-for="fruit in fruits" :key="fruit" :value="fruit">
+                {{ fruit }}
+              </option>
+            </select>
+
+            <p>Fruit sélectionné : {{ selectedFruit }}</p>
+          </div>
+        </template>
+
         <template v-if="error">
             <p style="color: red;">Erreur lors du chargement du fichier JSON : {{ error }}</p>
         </template>
@@ -95,6 +108,17 @@
                     }
                 };
 
+                const handleOptionChange= ()=> {
+                    // Perform the action you want with the selected option
+                    console.log("Selected option:", this.selectedOption);
+                };
+
+                // Liste des options
+                const fruits = ref(['Pomme', 'Banane', 'Orange', 'Fraise'])
+
+                // Valeur sélectionnée
+                const selectedFruit = ref('')
+
                 fetchData();
 
                 return {
@@ -102,9 +126,16 @@
                     loading,
                     error,
                     options,
-                    selectedOption
+                    selectedOption,
+                    handleOptionChange,
+                    fruits,
+                    selectedFruit
                 };
-            }
+            },
+            handleOptionChange() {
+                // Perform the action you want with the selected option
+                console.log("Selected option:", this.selectedOption);
+            },
         }).mount('#app');
     </script>
 </body>
