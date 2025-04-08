@@ -52,12 +52,24 @@
             <table>
                 <thead>
                     <tr>
-                        <th v-for="(value, key, index) in data[0]" :key="key">{{ key }}</th>
+<!--                        <th v-for="(value, key, index) in data[0]" :key="key">{{ key }}</th>-->
+                        <th>Type</th>
+                        <th>Nom</th>
+                        <th>Debut</th>
+                        <th>Fin</th>
+                        <th>Duree</th>
+                        <th>Favorie</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in data" :key="index">
-                        <td v-for="(value, key) in item" :key="key">{{ value }}</td>
+<!--                        <td v-for="(value, key) in item" :key="key">{{ value }}</td>-->
+                        <td>{{ item.event_name }}</td>
+                        <td>{{ item.nom }}</td>
+                        <td>{{ item.event_start }}</td>
+                        <td>{{ item.event_finish }}</td>
+                        <td>{{ item.event_duration }}</td>
+                        <td>{{ item.favori }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -78,7 +90,7 @@
                 const data = ref([]);
                 const loading = ref(false);
                 const error = ref(null);
-                const jsonFilePath = 'data_complet.json';
+                const jsonFilePath = 'https://abarhub.github.io/test01/data_complet.json';
                 const options=ref([]);
                 const selectedOption=ref(null);
 
