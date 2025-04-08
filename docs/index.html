@@ -24,25 +24,25 @@
 <body>
     <div id="app">
         <h1>Vue.js 3</h1>
-        <template>
-            <div>
-                <select v-model="selectedOption" @change="handleOptionChange">
-                    <option v-for="option in options" :value="option.value" :key="option.value">{{ option.label }}</option>
-                </select>
-            </div>
-        </template>
-        <template>
-          <div>
-            <label for="fruit-select">Choisis un fruit :</label>
-            <select id="fruit-select" v-model="selectedFruit">
-              <option v-for="fruit in fruits" :key="fruit" :value="fruit">
-                {{ fruit }}
-              </option>
-            </select>
+<!--        <template>-->
+<!--            <div>-->
+<!--                <select v-model="selectedOption" @change="handleOptionChange">-->
+<!--                    <option v-for="option in options" :value="option.value" :key="option.value">{{ option.label }}</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </template>-->
+<!--        <template>-->
+<!--          <div>-->
+<!--            <label for="fruit-select">Choisis un fruit :</label>-->
+<!--            <select id="fruit-select" v-model="selectedFruit">-->
+<!--              <option v-for="fruit in fruits" :key="fruit" :value="fruit">-->
+<!--                {{ fruit }}-->
+<!--              </option>-->
+<!--            </select>-->
 
-            <p>Fruit sélectionné : {{ selectedFruit }}</p>
-          </div>
-        </template>
+<!--            <p>Fruit sélectionné : {{ selectedFruit }}</p>-->
+<!--          </div>-->
+<!--        </template>-->
 
         <template v-if="error">
             <p style="color: red;">Erreur lors du chargement du fichier JSON : {{ error }}</p>
