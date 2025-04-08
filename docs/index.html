@@ -23,6 +23,14 @@
 </head>
 <body>
     <div id="app">
+        <h1>Vue.js 3</h1>
+        <template>
+            <div>
+                <select v-model="selectedOption" @change="handleOptionChange"">
+                    <option v-for="option in options" :value="option.value" :key="option.value">{{ option.label }}</option>
+                </select>
+            </div>
+        </template>
         <template v-if="error">
             <p style="color: red;">Erreur lors du chargement du fichier JSON : {{ error }}</p>
         </template>
@@ -58,18 +66,27 @@
                 const loading = ref(false);
                 const error = ref(null);
                 const jsonFilePath = 'data_1.json'; // Chemin vers votre fichier JSON
+                const options=ref([]);
+                const selectedOption=ref(null);
+
 
                 const fetchData = async () => {
                     loading.value = true;
                     error.value = null;
+                    selectedOption.value = null;
+                    options.value=[
+                            { label: 'Option 1', value: 'option1' },
+                            { label: 'Option 2', value: 'option2' },
+                            { label: 'Option 3', value: 'option3' },
+                            ];
                     try {
                         const response = await fetch(jsonFilePath);
                         if (!response.ok) {
                             throw new Error(`Erreur HTTP: ${response.status}`);
                         }
                         let tmp = await response.json();
-                        if(tmp&&tmp.liste){
-                            data.value=tmp.liste;
+                        if(tmp&&tmp.liste1){
+                            data.value=tmp.liste1;
                         }
                     } catch (err) {
                         error.value = err.message;
@@ -83,7 +100,9 @@
                 return {
                     data,
                     loading,
-                    error
+                    error,
+                    options,
+                    selectedOption
                 };
             }
         }).mount('#app');
