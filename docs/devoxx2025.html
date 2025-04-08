@@ -67,7 +67,10 @@
                         if (!response.ok) {
                             throw new Error(`Erreur HTTP: ${response.status}`);
                         }
-                        data.value = await response.json();
+                        let tmp = await response.json();
+                        if(tmp&&tmp.liste){
+                            data.value=tmp.liste;
+                        }
                     } catch (err) {
                         error.value = err.message;
                     } finally {
