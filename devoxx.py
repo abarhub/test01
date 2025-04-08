@@ -144,13 +144,13 @@ for day in days:
     #     })
 
 # Export en CSV
-with open("devoxx_2025_conferences"+str(jour)+".csv", "w", newline="", encoding="utf-8") as csvfile:
-    fieldnames = ["Date", "Titre", "Description", "Début", "Fin", "Durée (min)", "Intervenants", "Track"]
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    writer.writeheader()
-    writer.writerows(conferences)
+# with open("devoxx_2025_conferences"+str(jour)+".csv", "w", newline="", encoding="utf-8") as csvfile:
+#     fieldnames = ["Date", "Titre", "Description", "Début", "Fin", "Durée (min)", "Intervenants", "Track"]
+#     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+#     writer.writeheader()
+#     writer.writerows(conferences)
 
-print("Export terminé : devoxx_2025_conferences.csv")
+#print("Export terminé : devoxx_2025_conferences.csv")
 
-with open('data_'+str(jour)+'.json', 'w') as outfile:
+with open('docs/data_'+str(jour)+'.json', 'w') as outfile:
     json.dump(a_dict, outfile,indent=4)
