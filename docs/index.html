@@ -24,6 +24,19 @@
 <body>
     <div id="app">
         <h1>Vue.js 3</h1>
+        <div class="select-container">
+            <label for="options">Choisissez une option :</label>
+            <select id="options" v-model="selectedOption">
+                <option disabled value="">Veuillez sélectionner</option>
+                <option v-for="option in options" :value="option.value">
+                    {{ option.text }}
+                </option>
+            </select>
+        </div>
+
+        <p v-if="selectedOption">
+            Vous avez sélectionné : <strong>{{ getSelectedText() }}</strong>
+        </p>
 <!--        <template>-->
 <!--            <div>-->
 <!--                <select v-model="selectedOption" @change="handleOptionChange">-->
@@ -91,27 +104,33 @@
                 const loading = ref(false);
                 const error = ref(null);
                 const jsonFilePath = 'https://abarhub.github.io/test01/data_complet.json';
-                const options=ref([]);
-                const selectedOption=ref(null);
+                const listeComplete=ref({});
+                const jourSelectionner = ref(0);
+                //const options=ref([]);
+                //const selectedOption=ref(null);
 
 
                 const fetchData = async () => {
                     loading.value = true;
                     error.value = null;
-                    selectedOption.value = null;
-                    options.value=[
-                            { label: 'Option 1', value: 'option1' },
-                            { label: 'Option 2', value: 'option2' },
-                            { label: 'Option 3', value: 'option3' },
-                            ];
+                    //selectedOption.value = null;
+                    // options.value=[
+                    //         { label: 'Option 1', value: 'option1' },
+                    //         { label: 'Option 2', value: 'option2' },
+                    //         { label: 'Option 3', value: 'option3' },
+                    //         ];
                     try {
                         const response = await fetch(jsonFilePath);
                         if (!response.ok) {
                             throw new Error(`Erreur HTTP: ${response.status}`);
                         }
                         let tmp = await response.json();
-                        if(tmp&&tmp.liste1){
-                            data.value=tmp.liste1;
+                        if(tmp){
+                            listeComplete.value = tmp;
+                            if(tmp.liste1) {
+                                jourSelectionner.value = 1;
+                                data.value = tmp.liste1;
+                            }
                         }
                     } catch (err) {
                         error.value = err.message;
@@ -126,10 +145,41 @@
                 };
 
                 // Liste des options
-                const fruits = ref(['Pomme', 'Banane', 'Orange', 'Fraise'])
+                // const fruits = ref(['Pomme', 'Banane', 'Orange', 'Fraise'])
+                //
+                // // Valeur sélectionnée
+                // const selectedFruit = ref('')
 
-                // Valeur sélectionnée
-                const selectedFruit = ref('')
+                const selectedOption = ref('');
+
+                const options = ref([
+                    { value: '1', text: 'Mercredi' },
+                    { value: '2', text: 'Jeudi' },
+                    { value: '3', text: 'Vendredi' }
+                ]);
+
+                const getSelectedText = () => {
+                    const option = options.value.find(opt => opt.value === selectedOption.value);
+                    let nb=selectedOption.value;
+                    if(nb){
+                        console.log('nb selected', nb);
+                        if(nb>=1&&nb<=3){
+
+                            if(nb===1){
+                                jourSelectionner.value = 1;
+                                data.value = listeComplete.value.liste1;
+                            } else if(nb===2){
+                                jourSelectionner.value = 2;
+                                data.value = listeComplete.value.liste2;
+                            } else if(nb===3){
+                                jourSelectionner.value = 3;
+                                data.value = listeComplete.value.liste3;
+                            }
+                            console.log('jour selected', jourSelectionner.value, data.value.length);
+                        }
+                    }
+                    return option ? option.text : '';
+                };
 
                 fetchData();
 
@@ -137,11 +187,16 @@
                     data,
                     loading,
                     error,
-                    options,
-                    selectedOption,
+                    listeComplete,
+                    jourSelectionner,
+                    // options,
+                    // selectedOption,
                     handleOptionChange,
-                    fruits,
-                    selectedFruit
+                    // fruits,
+                    // selectedFruit
+                    selectedOption,
+                    options,
+                    getSelectedText
                 };
             },
             handleOptionChange() {
